@@ -94,8 +94,6 @@
       canvas.style.height = "100%";
     }
 
-    loadingBar.style.display = "block";
-
     var script = document.createElement("script");
     script.src = loaderUrl;
     script.onload = () => {
@@ -103,88 +101,11 @@
         progressBarFull.style.width = 100 * progress + "%";
       }).then((unityInstance) => {
         window.unityInstance = unityInstance;
-        showFullScreenAdv();
-        if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-          window.unityInstance.SendMessage('YandexSDK', 'OnGetPlayerPlatform', 'phone');
-        }
-        else {
-          window.unityInstance.SendMessage('YandexSDK', 'OnGetPlayerPlatform', 'desktop');
-        }
-        loadingBar.style.display = "none";
       }).catch((message) => {
         alert(message);
       });
     };
     document.body.appendChild(script);
-  </script>
-  <script>
-    function auth() {
-      initPlayer();
-    }
-    function initPlayer() {
-      return sdk.getPlayer().then(_player => {
-        player = _player;
-        if (_player.getMode() === 'lite') {
-          window.unityInstance.SendMessage('YandexSDK', 'OnCanReview', "no");
-          window.unityInstance.SendMessage('YandexSDK', 'OnPlayerAuthenticated');
-        }
-        else {
-          sdk.feedback.canReview()
-            .then(({ value, reason }) => {
-              if (value) {
-                window.unityInstance.SendMessage('YandexSDK', 'OnCanReview', "yes");
-                window.unityInstance.SendMessage('YandexSDK', 'OnPlayerAuthenticated');
-              } else {
-                window.unityInstance.SendMessage('YandexSDK', 'OnCanReview', "no");
-                window.unityInstance.SendMessage('YandexSDK', 'OnPlayerAuthenticated');
-              }
-            })
-        }
-      }).catch(err => {
-      });
-    }
-    function setPlayerData(dataStr) {
-      player.setData({
-        "data": dataStr
-      }).then(() => {
-        console.log("saved");
-      }).catch(() => {
-        console.log("not saved");
-      });
-    }
-    function getPlayerData() {
-      player.getData(["data"]).then(data => {
-        if (data.data.length != 0) {
-          var dataStr = data.data;
-          console.log("ok");
-          console.log(dataStr);
-          window.unityInstance.SendMessage('YandexSDK', 'OnGetPlayerData', dataStr);
-        }
-        else {
-          console.log("chota est");
-          var dataStr = 'none';
-          window.unityInstance.SendMessage('YandexSDK', 'OnGetPlayerData', dataStr);
-        }
-      }).catch((err) => {
-        console.log("ne ok");
-        var dataStr = 'none';
-        window.unityInstance.SendMessage('YandexSDK', 'OnGetPlayerData', dataStr);
-      });
-    }
-    function openRateUs() {
-      sdk.feedback.canReview()
-        .then(({ value, reason }) => {
-          if (value) {
-            sdk.feedback.requestReview()
-              .then(({ feedbackSent }) => {
-              window.focus();
-                console.log(feedbackSent);
-              })
-          } else {
-            console.log(reason)
-          }
-        })
-    }
 
     jQuery(document).ready(function($) // страница прогружена
     {
