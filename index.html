@@ -24,7 +24,7 @@
   <script>
       function showInterstitial ()
       {
-        vkBridge.send('VKWebAppShowNativeAds', {ad_format:"interstitial"}).then(data => {alert(data);});
+        vkBridge.send('VKWebAppShowNativeAds', {ad_format:"interstitial"}).then(data => {console.log(data);});
       }
 
     var container = document.querySelector("#unity-container");
@@ -59,11 +59,11 @@
     }
 
     var buildUrl = "Build";
-    var loaderUrl = buildUrl + "/3.loader.js";
+    var loaderUrl = buildUrl + "/1.loader.js";
     var config = {
-      dataUrl: buildUrl + "/3.data.unityweb",
-      frameworkUrl: buildUrl + "/3.framework.js.unityweb",
-        codeUrl: buildUrl + "/3.wasm.unityweb",
+      dataUrl: buildUrl + "/1.data.unityweb",
+      frameworkUrl: buildUrl + "/1.framework.js.unityweb",
+        codeUrl: buildUrl + "/1.wasm.unityweb",
         streamingAssetsUrl: "StreamingAssets",
       companyName: "Finik",
     productName: "Eta shtuka poka ne rabotaet, nu i ladno",
@@ -89,6 +89,8 @@
       canvas.style.width = "100%";
       canvas.style.height = "100%";
     }
+
+    loadingBar.style.display = "block";
 
     var script = document.createElement("script");
     script.src = loaderUrl;
