@@ -8,7 +8,7 @@
   <link rel="shortcut icon" href="TemplateData/favicon.ico">
   <link rel="stylesheet" href="TemplateData/style.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-    <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
+  <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
 </head>
 
 <body style="overflow: hidden">
@@ -22,10 +22,10 @@
     </div>
   </div>
   <script>
-      function showInterstitial ()
-      {
-        vkBridge.send('VKWebAppShowNativeAds', {ad_format:"interstitial"}).then(data => {console.log(data);});
-      }
+    function showInterstitial ()
+    {
+      vkBridge.send('VKWebAppShowNativeAds', {ad_format:"interstitial"}).then(data => {console.log(data);});
+    }
 
     var container = document.querySelector("#unity-container");
     var canvas = document.querySelector("#unity-canvas");
@@ -109,5 +109,4 @@
     });
   </script>
 </body>
-
 </html>
