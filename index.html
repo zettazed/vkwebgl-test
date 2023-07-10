@@ -103,28 +103,17 @@
 
     function showInterstitial ()
     {
-      vkBridge.send('VKWebAppShowNativeAds', {ad_format:"interstitial"}).then(data => {unityInstance.SendMessage('GameManager', 'PlayGameAd', JSON.stringify(data.result));});
+      vkBridge.send('VKWebAppShowNativeAds', {ad_format:"interstitial"}).then(data => {console.log(data);});
     }
 
     function showRewarded ()
     {
       vkBridge.send('VKWebAppShowNativeAds', {ad_format:"reward"}).then(data => {console.log(data);
-      unityInstance.SendMessage('VKManager', 'RewardVK', JSON.stringify(data.result));});
+      unityInstance.SendMessage('VKManager', 'Reward', JSON.stringify(data.result));});
     }
 
     function share ()
     {
-      vkBridge.send('VKWebAppShowWallPostBox', {
-          message: 'Посоревнуемся? У кого выше уровень, тот и победил!',
-          attachment: 'https://vk.com/app51683828',
-        })
-        .then( (data) => {
-          // Запись отправлена на стену
-          console.log(`Идентификатор записи: ${data.post_id}`);
-        })
-        .catch( (e) => {
-          console.log("Ошибка!", e);
-        });
     }
 
     function friendInvite ()
